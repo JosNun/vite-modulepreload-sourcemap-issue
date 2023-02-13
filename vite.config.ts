@@ -5,6 +5,14 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   build: {
     sourcemap: true,
+    // Force another chunk to be generated. Otherwise, we need the `splitVendorChunkPlugin` to reproduce the issue
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          utils: ['./src/utils']
+        }
+      }
+    }
   },
-  plugins: [splitVendorChunkPlugin(), react()],
+  plugins: [react()],
 })
